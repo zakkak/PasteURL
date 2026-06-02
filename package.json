@@ -3,18 +3,18 @@
     "displayName": "Paste URL",
     "description": "Paste URL in Markdown/reStructuredText format",
     "version": "0.5.7",
-    "publisher": "kukushi",
+    "publisher": "zakkak",
     "repository": {
         "type": "git",
-        "url": "https://github.com/kukushi/PasteURL.git"
+        "url": "https://github.com/zakkak/PasteURL.git"
     },
     "bugs": {
-        "url": "https://github.com/kukushi/PasteURL/issues"
+        "url": "https://github.com/zakkak/PasteURL/issues"
     },
-    "author": "kukushi",
+    "author": "zakkak",
     "license": "MIT",
     "icon": "images/icon.png",
-    "homepage": "https://github.com/kukushi/PasteURL/blob/master/README.md",
+    "homepage": "https://github.com/zakkak/PasteURL/blob/master/README.md",
     "engines": {
         "vscode": "^1.16.0"
     },

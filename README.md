@@ -39,8 +39,12 @@ You can change the default shortcut to whatever you like by editing the `Code > 
 
 ## Source
 
-[GitHub](https://github.com/kukushi/PasteURL)
+[GitHub](https://github.com/zakkak/PasteURL)
 
 ## License
 
-[MIT](https://github.com/kukushi/PasteURL/blob/master/LICENSE)
+[MIT](https://github.com/zakkak/PasteURL/blob/master/LICENSE)
+
+## Acknowledgement
+
+This is a fork of kukushi's [PasteURL](https://github.com/kukushi/PasteURL)
