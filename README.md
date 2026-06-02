@@ -20,8 +20,6 @@ One gif is worth a thousand words.
 
 ## Usage
 
-For Ubuntu Linux make sure that xclip package is installed, see http://github.com/xavi-/node-copy-paste for details.
-
 - Hit `"Control + Alt + P"` (Recommended)
 - Hit `"Command + Shift + P"` and then type `Paste URL` and hit enter.
 
