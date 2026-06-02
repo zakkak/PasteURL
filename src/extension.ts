@@ -67,12 +67,12 @@ export class Paster {
         })
     }
 
-    isMissingXclipError(error) {
-        if (process.platform !== 'linux' && process.platform !== 'freebsd' && process.platform !== 'openbsd') {
+    isMissingXclipError(error: Error | undefined, platform: string = process.platform) {
+        if (!this.isLinuxLikePlatform(platform)) {
             return false
         }
 
-        if (error == undefined || error.message == undefined) {
+        if (error === undefined || error.message === undefined) {
             return false
         }
 
@@ -80,9 +80,13 @@ export class Paster {
         return message.includes('xclip') && (message.includes('not found') || message.includes('enoent'))
     }
 
-    reportClipboardError(error) {
+    isLinuxLikePlatform(platform: string = process.platform) {
+        return platform === 'linux' || platform === 'freebsd' || platform === 'openbsd'
+    }
+
+    reportClipboardError(error: Error) {
         if (this.isMissingXclipError(error)) {
-            vscode.window.showWarningMessage('Paste URL requires xclip to read the clipboard. Install xclip and try again.')
+            vscode.window.showWarningMessage('Paste URL requires xclip. Install xclip with your package manager and try again.')
             return
         }
 
