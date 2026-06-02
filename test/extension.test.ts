@@ -25,4 +25,17 @@ suite("Extension Tests", () => {
         var titleProcessed = paster.processTitle(title, URL)
         assert.equal(title, titleProcessed) 
     })
+
+    test("Detect missing xclip errors", () => {
+        var paster = new PU.Paster()
+        var isUnixLike = process.platform === 'linux' || process.platform === 'freebsd' || process.platform === 'openbsd'
+        var detected = paster.isMissingXclipError(new Error('/bin/sh: 1: xclip: not found'))
+        assert.equal(detected, isUnixLike)
+    })
+
+    test("Ignore unrelated clipboard errors", () => {
+        var paster = new PU.Paster()
+        var detected = paster.isMissingXclipError(new Error('clipboard access denied'))
+        assert.equal(detected, false)
+    })
 });

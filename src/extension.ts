@@ -54,12 +54,39 @@ export class Paster {
         }
 
         copyPaste.paste((error, content) => {
+            if (error) {
+                this.reportClipboardError(error)
+                return
+            }
+
             if (content) {
                 this.generateMarkDownStyleLink(content)
             } else {
                 this.showMessage('[PasteURL]: Not a URL.')
             }
         })
+    }
+
+    isMissingXclipError(error) {
+        if (process.platform !== 'linux' && process.platform !== 'freebsd' && process.platform !== 'openbsd') {
+            return false
+        }
+
+        if (error == undefined || error.message == undefined) {
+            return false
+        }
+
+        var message = error.message.toLowerCase()
+        return message.includes('xclip') && (message.includes('not found') || message.includes('enoent'))
+    }
+
+    reportClipboardError(error) {
+        if (this.isMissingXclipError(error)) {
+            vscode.window.showWarningMessage('Paste URL requires xclip to read the clipboard. Install xclip and try again.')
+            return
+        }
+
+        vscode.window.showErrorMessage('Paste URL failed to read the clipboard. ' + error.message)
     }
 
     getLanguage() {
