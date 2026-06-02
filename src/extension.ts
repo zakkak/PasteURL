@@ -51,7 +51,7 @@ export class Paster {
             } else {
                 this.showMessage('[PasteURL]: Not a URL.');
             }
-        }).catch(() => {
+        }, () => {
             this.showMessage('[PasteURL]: Failed to read clipboard.');
         });
     }
