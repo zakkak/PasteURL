@@ -6,6 +6,9 @@ import { URL } from 'url';
 import { window, StatusBarAlignment, Position, Range } from 'vscode';
 import * as vscode from 'vscode';
 
+const MAX_RESPONSE_SIZE = 1000000;
+const REQUEST_TIMEOUT_MS = 8000;
+
 export function activate(context: vscode.ExtensionContext) {
     let paster = new Paster();
     let disposable = vscode.commands.registerCommand('pasteURL.PasteURL', () => {
@@ -148,7 +151,7 @@ export class Paster {
                 response.setEncoding('utf8');
                 response.on('data', (chunk: string) => {
                     body += chunk;
-                    if (body.length > 1000000 || /<\/title>/i.test(body)) {
+                    if (body.length > MAX_RESPONSE_SIZE || /<\/title>/i.test(body)) {
                         response.destroy();
                     }
                 });
@@ -164,7 +167,7 @@ export class Paster {
             });
 
             req.on('error', (err) => reject(err));
-            req.setTimeout(8000, () => {
+            req.setTimeout(REQUEST_TIMEOUT_MS, () => {
                 req.destroy();
                 resolve(undefined);
             });
@@ -183,7 +186,7 @@ export class Paster {
     replaceWith(originalContent: string, newContent: string) {
         let document = vscode.window.activeTextEditor.document;
         var range: Range;
-        var line: string = '';
+        var line: string;
         for (var i = 0; i < document.lineCount; i++) {
             line = document.lineAt(i).text;
 
